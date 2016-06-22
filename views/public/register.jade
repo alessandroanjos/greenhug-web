@@ -1,0 +1,34 @@
+//
+   Created by Robson on 06/04/2015.
+extends ../layout
+block title
+    title Cadastro
+block content
+    mixin form-group(type, name, placeholder, label)
+        div
+            if(label)
+                label(for=name) #{label}
+            else
+                label(for=name) #{placeholder}
+            input(type=type, id=name, name=name, placeholder=placeholder)&attributes(attributes)
+    mixin select-list(items, name, placeholder)
+        div
+            label(for=name) placeholder
+            select(name=name, id=name)
+                option(disable, selected) Escolha uma
+                each item in items
+                    option(value='#{item.id}') #{item.name}
+    - var discover_list = [{id : 0, name : 'Redes Sociais'},{id : 1, name : 'Eventos'}]
+    if result
+        div.alert(class="alert-#{result.status}")
+            p #{result.message}
+    form(action='/cadastro', method='post', id='form-register')
+        +form-group('text','first_name','Primeiro Nome')(required='required')
+        +form-group('text','last_name','Sobrenome')(required='required')
+        +form-group('date','birthdate','dd/MM/aaaa', 'Data de Nascimento')(required='required')
+        +form-group('email','email','E-mail')(required='required')
+        +form-group('password','password','Senha')(required='required')
+        +form-group('password','conf_password','Confirme sua Senha')(required='required')
+        +form-group('file','avatar','Avatar')
+        +select-list(discover_list, 'discover_type', 'Como voc� descobriu o GreenHug?')
+        button(type=submit) Enviar

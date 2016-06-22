@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    if result
+        .alert(class='alert-#{result.status}')
+            p= result.message
+    ul
+        li
+            a(href='/cadastro') Cadastro
+        li
+            a(href='/login') Login
+        li
+            a(href='/esquecisenha') Redefinir Senha
+

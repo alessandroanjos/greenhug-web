@@ -1,0 +1,17 @@
+//
+   Created by Robson on 06/04/2015.
+extends ../layout
+block title
+    title Login
+block content
+    mixin form-group(type, name, placeholder)
+        div
+            label(for=name) #{placeholder}
+            input(type=type, id=name, name=name, placeholder=placeholder, required='required')
+    if result
+        div.alert(class="alert-#{result.status}")
+            p #{result.message}
+    form(action='/login', method='post', id='form-login')
+        +form-group('email', 'email', 'E-mail')
+        +form-group('password', 'password', 'Senha')
+        button(type='submit') Entrar
